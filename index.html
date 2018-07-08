@@ -1,0 +1,359 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example</title>
+<!-- - -->
+  <link rel="stylesheet" href="style.css">
+<script src="jquery.js" type="text/javascript"></script>
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<!-- - -->
+<script type="text/javascript">
+
+
+var dataFirstY = [];
+var dataFirstX = [];
+
+var dataSecondY = [];
+var dataSecondX = [];
+
+var dataThirdY = [];
+var dataThirdX = [];
+
+var dataFourthY = [];
+var dataFourthX = [];
+
+var dataFifthY = [];
+var dataFifthX = [];
+
+var dataSixthY = [];
+var dataSixthX = [];
+
+var dataResult1 = [];
+var dataResult2 = [];
+var dataResult3 = [];
+var dataResult4 = [];
+var dataResult5 = [];
+var dataResult6 = [];
+
+
+var DN = 0; // 10 
+var DE = -1; // -1
+
+
+var q = (0.1190 * 97.2 * 97.2) / 2;
+var A_bal = (57.3 * (73000 - (-0.255 * 201.45 * q))) / (5.78 * 201.45 * q);
+
+var a1 = (0.141 * 0.1190 * 97.2 * 201.45 * 37.55 * 37.55) / (4 * 800000);
+var a2 = (0.1518 * 0.1190 * 97.2 * 97.2 * 201.45 * 37.55) / (2 * 800000);
+var a3 = (0.071 * 0.1190 * 97.2 * 97.2 * 201.45 * 37.55) / (2 * 800000);
+var a4 = (0.8136 * 0.1190 * 97.2 * 201.45 * 9.81) / (2 * 73000);
+var a5 = (0.02 * 0.1190 * 97.2 * 97.2 * 201.45 * 37.55) / (2 * 170000);
+var a6 = (0.151 * 0.1190 * 97.2 * 201.45 * 37.55 * 37.55) / (4 * 170000);
+var a7 = (0.1600 * 9.81 * 0.1190 * 97.2 * 201.45) / (2 * 73000);
+
+var b1 = (0.56 * 0.1190 * 97.2 * 201.45 * 37.55 * 37.55) / (4 * 170000);
+var b2 = (0.1146 * 0.1190 * 97.2 * 97.2 * 201.45 * 37.55) / (2 * 170000);
+var b3 = (0.07 * 0.1190 * 97.2 * 97.2 * 201.45 * 37.55) / (2 * 170000);
+var b4 = (9.81 * Math.cos(A_bal)) / 97.2;
+var b5 = 0;
+var b6 = (-0.026 * 0.1190 * 97.2 * 201.45 * 37.55 * 37.55) / (4 * 800000);
+var b7 = Math.sin(A_bal);
+
+var C6 = 97.2 / 57.3;
+
+console.log(a1);
+console.log(a2);
+console.log(a3);
+console.log(a4);
+console.log(a5);
+console.log(a6);
+console.log(a7);
+
+
+var x0 = 0;
+var x1 = 0;
+var x2 = 0;
+var x3 = 0;
+var x4 = 0;
+var x5 = 0;
+
+var y0 = 0;
+var y1 = 0;
+var y2 = 0;
+var y3 = 0;
+var y4 = 0;
+var y5 = 0;
+
+var myK = 0;
+
+for (var T = 0; T < 180; T = T + 0.05) {
+
+  if(T > 1){
+    DN = 0;
+
+    x0 = y2;
+  x1 = y3;
+  x2 = -(a1 * x0 + b6 * x1 + a2 * y4 + a3 * DN + b5 * DE);
+  x3 = -(b1 * x1 + a6 * x0 + b2 * y4 + a5 * DN + b3 * DE);
+  x4 = -(-x0 - b4 * y1 - b7 * x1 + a4 * y4 + a7 * DN);
+  x5 = -C6 * (y0 - y4);
+  
+
+    y0 += x0 * 0.05;
+    y1 += x1 * 0.05;
+    y2 += x2 * 0.05;
+    y3 += x3 * 0.05;
+    y4 += x4 * 0.05;
+    y5 += x5 * 0.05;
+  
+  }
+  else {
+    DN = 10;
+    x0 = y2;
+  x1 = y3;
+  x2 = -(a1 * x0 + b6 * x1 + a2 * y4 + a3 * DN + b5 * DE);
+  x3 = -(b1 * x1 + a6 * x0 + b2 * y4 + a5 * DN + b3 * DE);
+  x4 = -(-x0 - b4 * y1 - b7 * x1 + a4 * y4 + a7 * DN);
+  x5 = -C6 * (y0 - y4);
+  
+
+    y0 += x0 * 0.05;
+    y1 += x1 * 0.05;
+    y2 += x2 * 0.05;
+    y3 += x3 * 0.05;
+    y4 += x4 * 0.05;
+    y5 += x5 * 0.05;
+  
+  }
+    
+    
+  //   if((Math.round(T * 100) / 100) % 2 == 0){
+  // console.log(Math.round(T * 100) / 100 + " " + y0);
+  // console.log(Math.round(T * 100) / 100 + " " + y1);
+  // console.log(Math.round(T * 100) / 100 + " " + y2);
+  // console.log(Math.round(T * 100) / 100 + " " + y3);
+  // console.log(Math.round(T * 100) / 100 + " " + y4);
+  // console.log(Math.round(T * 100) / 100 + " " + y5);
+  // console.log(' ');
+  //  }
+
+  
+      //for first
+    dataFirstY[myK] = y0;
+    dataFirstX[myK] = T;
+    //for second
+    dataSecondY[myK] = y1;
+    dataSecondX[myK] = T; 
+    //for third
+    dataThirdY[myK] = y2;
+    dataThirdX[myK] = T;  
+    //for fourth
+    dataFourthY[myK] = y3;
+    dataFourthX[myK] = T;   
+
+    dataFifthY[myK] = y4;
+    dataFifthX[myK] = T;
+
+    dataSixthY[myK] = y5;
+    dataSixthX[myK] = T;
+
+      myK++;
+
+ // console.log(' ');
+
+}
+
+//for Result  Result X Y
+for (var i = 0; i < 3600; i++) {
+  //for 1
+  dataResult1[i] = [];
+  dataResult1[i][1] = dataFirstY[i];
+  dataResult1[i][0] = dataFirstX[i];
+  //for 2
+  dataResult2[i] = [];
+  dataResult2[i][1] = dataSecondY[i];
+  dataResult2[i][0] = dataSecondX[i];
+  //for 3
+  dataResult3[i] = [];
+  dataResult3[i][1] = dataThirdY[i];
+  dataResult3[i][0] = dataThirdX[i];
+  //for 4
+  dataResult4[i] = [];
+  dataResult4[i][1] = dataFourthY[i];
+  dataResult4[i][0] = dataFourthX[i];
+
+  dataResult5[i] = [];
+  dataResult5[i][1] = dataFifthY[i];
+  dataResult5[i][0] = dataFifthX[i];
+
+  dataResult6[i] = [];
+  dataResult6[i][1] = dataSixthY[i];
+  dataResult6[i][0] = dataSixthX[i];
+}
+
+
+
+
+
+
+</script>
+<!-- - -->
+<script type="text/javascript">
+var chart1;
+$(document).ready(function(){
+  chart1 = new Highcharts.Chart({
+    chart: {renderTo: 'container1'},
+    series: [{data: dataResult1}],
+   title: {
+        text: 'Графік зміни кута рискання'
+    },
+        yAxis: {
+        title: {
+            text: '1 '
+        }
+    },
+         xAxis: {
+        title: {
+            text: 'T'
+        }
+    },
+
+  });
+});
+
+//---------------------------------------------------------------
+
+var chart2;
+$(document).ready(function(){
+  chart1 = new Highcharts.Chart({
+    chart: {renderTo: 'container2'},
+    series: [{data: dataResult2}],
+   title: {
+        text: 'Графік зміни кута крену'
+    },
+        yAxis: {
+        title: {
+            text: ' Θ'
+        }
+    },
+         xAxis: {
+        title: {
+            text: 'T'
+        }
+    },
+
+  });
+});
+
+//---------------------------------------------------------------------------
+
+var chart3;
+$(document).ready(function(){
+  chart3 = new Highcharts.Chart({
+    chart: {renderTo: 'container3'},
+    series: [{data: dataResult3}],
+       title: {
+        text: 'Графік зміни кутової швидкості рискання'
+    },
+        yAxis: {
+        title: {
+            text: ' 3'
+        }
+    },
+     xAxis: {
+        title: {
+            text: 'T'
+        }
+    },
+
+  });
+});
+
+//--------------------------------------------------------------------
+
+var chart4;
+$(document).ready(function(){
+  chart4 = new Highcharts.Chart({
+    chart: {renderTo: 'container4'},
+    series: [{data: dataResult4}],
+       title: {
+        text: 'Графік зміни кутової швидкості крену'
+    },
+        yAxis: {
+        title: {
+            text: '4'
+        }
+    },
+     xAxis: {
+        title: {
+            text: 'T'
+        }
+    },
+  });
+});
+
+//----------------------------------------------------------------------------
+
+var chart5;
+$(document).ready(function(){
+  chart5 = new Highcharts.Chart({
+    chart: {renderTo: 'container5'},
+    series: [{data: dataResult5}],
+       title: {
+        text: 'Графік зміни кута ковзання'
+    },
+        yAxis: {
+        title: {
+            text: '5'
+        }
+    },
+     xAxis: {
+        title: {
+            text: 'T'
+        }
+    },
+  });
+});
+
+//---------------------------------------------------------------------------
+
+var chart6;
+$(document).ready(function(){
+  chart1 = new Highcharts.Chart({
+    chart: {renderTo: 'container6'},
+    series: [{data: dataResult6}],
+   title: {
+        text: 'Графік зміни бічного відхилення'
+    },
+        yAxis: {
+        title: {
+            text: '6 '
+        }
+    },
+         xAxis: {
+        title: {
+            text: 'T'
+        }
+    },
+
+  });
+});
+
+
+</script>
+<!-- - -->
+</head>
+<body>
+<h1>Лабораторна робота №3</h1>
+
+<div class="con1"><div id="container1" style="width: 700px; height: 400px "></div></div>
+<div class="con1"><div id="container2" style="width: 700px; height: 400px "></div></div>
+<div class="con1"><div id="container3" style="width: 700px; height: 400px "></div></div>
+<div class="con1"><div id="container4" style="width: 700px; height: 400px "></div></div>
+<div class="con1"><div id="container5" style="width: 700px; height: 400px "></div></div>
+<div class="con1"><div id="container6" style="width: 700px; height: 400px "></div></div>
+
+</body>
+</html>

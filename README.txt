@@ -1,0 +1,1 @@
+Laboratory work ¹3 on the discipline of mathematical models (study of aircraft flight parameters)
